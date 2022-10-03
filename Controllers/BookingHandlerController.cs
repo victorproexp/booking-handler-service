@@ -19,6 +19,9 @@ public class BookingHandlerController : ControllerBase
     [HttpGet()]
     public IEnumerable<Booking> GetBookings()
     {
+        _logger.LogInformation("GetBookings called at {DT}",
+            DateTime.UtcNow.ToLongTimeString());
+
         return _repository.GetBookings();
     }
 }
