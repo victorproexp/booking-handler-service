@@ -14,8 +14,8 @@ public class Worker : BackgroundService
         _logger = logger;
         _repository = repository;
         // RabbitMQ connection factory
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        //var factory = new ConnectionFactory() { HostName = "172.17.0.2" };
+        //var factory = new ConnectionFactory() { HostName = "localhost" };
+        var factory = new ConnectionFactory() { HostName = "172.17.0.2" };
         _connection = factory.CreateConnection();
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
