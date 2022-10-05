@@ -9,13 +9,16 @@ public class Worker : BackgroundService
     private readonly ILogger<Worker> _logger;
     private IConnection _connection;
     private IBookingRepository _repository;
-    public Worker(ILogger<Worker> logger, IBookingRepository repository)
+    public Worker(ILogger<Worker> logger, IBookingRepository repository, IConfiguration configuration)
     {
         _logger = logger;
         _repository = repository;
-        // RabbitMQ connection factory
+
+        var mqhost = configuration["TaxaBookingBrokerHost"];
+
         //var factory = new ConnectionFactory() { HostName = "localhost" };
-        var factory = new ConnectionFactory() { HostName = "172.17.0.2" };
+        //var factory = new ConnectionFactory() { HostName = "172.17.0.2" };
+        var factory = new ConnectionFactory() { HostName = mqhost };
         _connection = factory.CreateConnection();
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
