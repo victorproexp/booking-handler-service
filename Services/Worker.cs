@@ -9,6 +9,7 @@ public class Worker : BackgroundService
     private readonly ILogger<Worker> _logger;
     private IConnection _connection;
     private IBookingRepository _repository;
+    private int _nextId;
     public Worker(ILogger<Worker> logger, IBookingRepository repository, IConfiguration configuration)
     {
         _logger = logger;
@@ -40,6 +41,7 @@ public class Worker : BackgroundService
 
             if(booking != null)
             {
+                booking.Id = _nextId++;
                 _repository.Put(booking);
 
                 Console.WriteLine(" [x] Received {0}", message);
